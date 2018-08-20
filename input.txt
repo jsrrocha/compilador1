@@ -1,0 +1,6 @@
+teste
+1
+2.52
+3
+'a'
+"hello world"
