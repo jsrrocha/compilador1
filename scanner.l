@@ -3,10 +3,12 @@
 
 
 #include "tokens.h"
+#include "hash.c"
 
-int lineNumber = 1;
+extern int yylineno;
 int running = 1;
 
+extern int getLineNumber(void);
 
 %}
 
@@ -34,6 +36,15 @@ int running = 1;
 "while" { 
 	return KW_WHILE;
 }
+"or" { 
+	return OPERATOR_OR;
+}
+"and" { 
+	return OPERATOR_AND;
+}
+"not" { 
+	return OPERATOR_NOT;
+}
 "read" {
 	return KW_READ;
 }
@@ -57,19 +68,9 @@ int running = 1;
  	return OPERATOR_EQ;
 }
 
-"&&" {
- 	return OPERATOR_AND;
-}
-
-"||" {
- 	return OPERATOR_OR;
-}
-"!=" {
- 	return OPERATOR_NOT;
-}
-
 
 [a-zA-Z_][a-zA-Z_0-9]* { 
+        hashInsert(0,yytext);
 	return TK_IDENTIFIER;
 }
 
@@ -81,7 +82,7 @@ int running = 1;
 	return LIT_FLOAT;
 }
 
-'.' {
+\'.\' {
 	return LIT_CHAR;
 }
 
@@ -94,9 +95,14 @@ int running = 1;
  	return yytext[0];
 }
 
-"\n" {
-	lineNumber =  lineNumber + 1;
+"\r\n" {
+	yylineno++;
+	
 }
+
+[ \t]+ ;
+"/*"([^*]|\*+[^*/])*\*+"/" ;
+\/\/.* ;
 
 . {
 	return TOKEN_ERROR;
@@ -118,11 +124,13 @@ int running = 1;
 void initMe() {
 	printf("init()\n");
 	running = 1;
+        hashInit();
 }
 
 
 int getLineNumber(void) {
-	return lineNumber;
+        printf("\nlinha %d",yylineno);
+	return yylineno;
 }
 
 int isRunning(void) {

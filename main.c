@@ -39,15 +39,19 @@ int main(int argc, char** argv)
     {
     token = yylex();
     
+   // getLineNumber();
+    //hashPrint();
     if (!isRunning())
       break;
     fscanf(gold,"%d",&answar);
     if (token == answar)
       {
+      
       fprintf(stderr,"%d=ok(%s)  ",i,yytext  );
       ++nota;
       }
     else
+       
       fprintf(stderr,"\n%d=ERROR(%s,%d,%d) ",i,yytext,token,answar );
     ++i;
     }
