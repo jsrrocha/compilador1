@@ -1,6 +1,8 @@
 
 #include "hash.h"
 
+//Jéssica Salvador Rodrigues da Rocha e Matheus Pereira
+
 void hashInit(){
     int i;
     for(i=0;i<HASH_SIZE;i++){

@@ -1,7 +1,7 @@
 
 
 #define TEXT_MAX_LENGTH 256
-#define HASH_SIZE 1024 * 1024
+#define HASH_SIZE 997
 
 
 typedef struct NODE

@@ -5,4 +5,4 @@ teste
 "hello world" "tes"
 char int float if then else while or and not read print return
 //int
-
+dbqp

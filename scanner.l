@@ -69,11 +69,6 @@ extern int getLineNumber(void);
 }
 
 
-[a-zA-Z_][a-zA-Z_0-9]* { 
-        hashInsert(0,yytext);
-	return TK_IDENTIFIER;
-}
-
 [0-9]+ {
 	return LIT_INTEGER;
 }
@@ -81,6 +76,12 @@ extern int getLineNumber(void);
 [0-9]+\.[0-9]+ {
 	return LIT_FLOAT;
 }
+
+[ace-or-zA-Z_0-9][a-zA-Z_0-9]* { 
+        hashInsert(0,yytext);
+	return TK_IDENTIFIER;
+}
+
 
 \'.\' {
 	return LIT_CHAR;
@@ -91,7 +92,7 @@ extern int getLineNumber(void);
 }
 
 
-[-,;:dbqp{}+*/<>=!&$#] { 
+[-,;:dbqp{}+*\/<>=!&$#] { 
  	return yytext[0];
 }
 
