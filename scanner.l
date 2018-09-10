@@ -3,7 +3,8 @@
 
 
 #include "tokens.h"
-#include "hash.c"
+#include "hash.h"
+#include "y.tab.h"
 
 extern int yylineno;
 int running = 1;
@@ -12,6 +13,8 @@ extern int getLineNumber(void);
 
 %}
 
+
+%x COMMENT
 
 %%
 
@@ -70,24 +73,28 @@ extern int getLineNumber(void);
 
 
 [0-9]+ {
+	yylval.symbol = hashInsert(LIT_INTEGER,yytext);
 	return LIT_INTEGER;
 }
 
 [0-9]+\.[0-9]+ {
+	yylval.symbol = hashInsert(LIT_FLOAT,yytext);
 	return LIT_FLOAT;
 }
 
 [ace-or-zA-Z_0-9][a-zA-Z_0-9]* { 
-        hashInsert(0,yytext);
+        yylval.symbol = hashInsert(TK_IDENTIFIER,yytext);
 	return TK_IDENTIFIER;
 }
 
 
 \'.\' {
+	yylval.symbol = hashInsert(LIT_CHAR,yytext);
 	return LIT_CHAR;
 }
 
 \"([^"]|\\\"|\\n)*\" {
+	yylval.symbol = hashInsert(LIT_STRING,yytext);
 	return LIT_STRING;
 }
 
@@ -101,9 +108,15 @@ extern int getLineNumber(void);
 	
 }
 
+"//".* {}
+"/*" { BEGIN(COMMENT); }
+<COMMENT>"*/" { BEGIN(INITIAL); }
+<COMMENT>"\n" { ++currentLine; }
+<COMMENT>.
+
 [ \t]+ ;
 "/*"([^*]|\*+[^*/])*\*+"/" ;
-\/\/.* ;
+\/\/.* ;	
 
 . {
 	return TOKEN_ERROR;
@@ -123,14 +136,14 @@ extern int getLineNumber(void);
 //código
 
 void initMe() {
-	printf("init()\n");
+	//printf("init()\n");
 	running = 1;
         hashInit();
 }
 
 
 int getLineNumber(void) {
-        printf("\nlinha %d",yylineno);
+        //printf("\nlinha %d",yylineno);
 	return yylineno;
 }
 
