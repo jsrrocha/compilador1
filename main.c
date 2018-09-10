@@ -10,8 +10,7 @@ extern FILE *yyin;
 int isRunning(void);
 void initMe(void);
 
-int main(int argc, char** argv)
-  {
+int main(int argc, char** argv){
   FILE *gold = 0;
   int token = 0;
   int answar = 0;
@@ -34,27 +33,35 @@ int main(int argc, char** argv)
     printf("Cannot open file %s... \n",argv[2]);
     exit(1);
     }
+
   initMe();
-  while (isRunning())
-    {
+  while (isRunning()){
     token = yylex();
-    
-   // getLineNumber();
-    //hashPrint();
+    // getLineNumber(); 
     if (!isRunning())
       break;
     fscanf(gold,"%d",&answar);
-    if (token == answar)
-      {
+    if (token == answar) {
       
-      fprintf(stderr,"%d=ok(%s)  ",i,yytext  );
+      fprintf(stderr,"\n%d=ok(%s)  ",i,yytext  );
       ++nota;
-      }
-    else
-       
+    }else
       fprintf(stderr,"\n%d=ERROR(%s,%d,%d) ",i,yytext,token,answar );
-    ++i;
-    }
+   ++i;
+  }
+
   printf("NOTA %d\n\n",nota);  
   fprintf(stderr,"NOTA %d\n\n",nota);  
+  hashPrint();
+
+  char *text = "teste";
+  HASH_NODE *node = hashFind(text);
+  if(node!=NULL){
+	printf("\nHash find: %s\n", node->text);
+  }else{
+  	printf("\nHash \"%s\" not find\n",text);
   }
+
+}
+
+  
