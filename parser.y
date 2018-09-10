@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include "hash.h"
 
+int yylex();
+int yyerror(char *text);
+
 %}
 
 %union { 
@@ -33,12 +36,21 @@
 %token<symbol> LIT_CHAR
 %token<symbol> LIT_STRING
 
+%token TOKEN_ERROR
+
+
+%start program
+
+%left '<' '>'
+%left '+' '-'
+%left '*' '/'
+
 %%
 
 program: definitions
 	;
 
-definitions: dec definitions
+definitions: def definitions
 	|
 	;
 
@@ -46,7 +58,26 @@ def: func_def
 	| var_def
 	;
 
+func_def: header block
+	;
 
+header: type TK_IDENTIFIER 'd' param_list 'b'
+	;
+
+param_list: type TK_IDENTIFIER param
+	|
+	;
+
+param: ',' type TK_IDENTIFIER param
+	|
+	;
+
+block: '{' cmd_list '}'
+	;
+
+cmd_list: cmd ';' cmd_list
+	| cmd
+	;
 
 cmd: TK_IDENTIFIER '=' expr
 	| TK_IDENTIFIER 'q' expr 'p' '=' expr
@@ -81,10 +112,42 @@ expr:   LIT_INTEGER { fprintf(stderr,"achei int" ); }
 	| expr OPERATOR_EQ expr
 	| expr OPERATOR_OR expr
 	| expr OPERATOR_NOT expr
+     	;
 
+args: args_list
+    |
+    ;
 
+args_list: expression ',' args_list
+    | expression
+    ;
 
-      ;
+expression_list: string_expression ',' expression_list
+	| string_expression
+	;
+
+string_expression: LIT_STRING
+	| expression
+	;
+
+var_def: type TK_IDENTIFIER '=' literal ';'
+	| type TK_IDENTIFIER 'q' LIT_INTEGER 'p' ':' literal_list ';'
+	| type TK_IDENTIFIER 'q' LIT_INTEGER 'p' ';'
+	;
+
+type: KW_CHAR
+	| KW_INT
+	| KW_FLOAT
+	;
+
+literal_list: literal literal_list
+	|
+	;
+
+literal: LIT_INTEGER
+	| LIT_FLOAT
+	| LIT_CHAR
+	;
 
 %%
 
