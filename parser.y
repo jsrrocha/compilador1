@@ -9,9 +9,7 @@ int yyerror(char *text);
 
 %}
 
-%union { 
-	HASH_NODE *symbol;
-}
+%union { HASH_NODE *symbol; }
 
 %token KW_CHAR
 %token KW_INT
@@ -118,16 +116,16 @@ args: args_list
     |
     ;
 
-args_list: expression ',' args_list
-    | expression
+args_list: expr ',' args_list
+    | expr
     ;
 
-expression_list: string_expression ',' expression_list
-	| string_expression
+expr_list: string_expr ',' expr_list
+	| string_expr
 	;
 
-string_expression: LIT_STRING
-	| expression
+string_expr: LIT_STRING
+	| expr
 	;
 
 var_def: type TK_IDENTIFIER '=' literal ';'

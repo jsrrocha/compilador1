@@ -109,7 +109,7 @@ extern int getLineNumber(void);
 "//".* {}
 "/*" { BEGIN(COMMENT); }
 <COMMENT>"*/" { BEGIN(INITIAL); }
-<COMMENT>"\n" { ++currentLine; }
+<COMMENT>"\n" { ++yylineno; }
 <COMMENT>.
 
 [ \t]+ ;

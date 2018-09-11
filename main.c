@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-
 #include "hash.h"
+#include "y.tab.h"
+
 
 //lex.yy.h
 int yylex();
@@ -55,15 +55,15 @@ int main(int argc, char** argv){
 
   printf("NOTA %d\n\n",nota);  
   fprintf(stderr,"NOTA %d\n\n",nota);  
-  hashPrint();
+  //hashPrint();
 
-  char *text = "teste";
-  HASH_NODE *node = hashFind(text);
-  if(node!=NULL){
-	printf("\nHash find: %s\n", node->text);
-  }else{
-  	printf("\nHash \"%s\" not find\n",text);
-  }
+  //char *text = "teste";
+  //HASH_NODE *node = hashFind(text);
+  //if(node!=NULL){
+  //printf("\nHash find: %s\n", node->text);
+  //}else{
+  //	printf("\nHash \"%s\" not find\n",text);
+  //}
 
 }
 
