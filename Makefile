@@ -29,7 +29,7 @@ y.tab.o: y.tab.c
 	gcc -c y.tab.c
 
 clean:
-	rm etapa2 lex.yy.c lex.yy.h y.tab.c y.tab.h *.o
+	rm etapa2 lex.yy.c lex.yy.h *.o
 
 
 

@@ -30,6 +30,9 @@ HASH_NODE* hashInsert(int type,char *text){
     int address;
     address = hashAddress(text);
 
+    if (newnode = hashFind(text)){
+        return newnode;
+    }
     newnode = (HASH_NODE*) calloc(1,sizeof(HASH_NODE));
     newnode->type =type;
     newnode->text = calloc(strlen(text) + 1,sizeof(char));
@@ -39,7 +42,6 @@ HASH_NODE* hashInsert(int type,char *text){
 
     return newnode;
 }
-
 
 
 HASH_NODE* hashFind(char *text){
@@ -56,7 +58,6 @@ HASH_NODE* hashFind(char *text){
 }
 
 
-
 void hashPrint(void){
     HASH_NODE *node;
     int i;
@@ -66,6 +67,8 @@ void hashPrint(void){
         }
     }
 }
+
+
 
 
 

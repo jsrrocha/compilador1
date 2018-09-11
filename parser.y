@@ -1,5 +1,7 @@
 %{
 
+//Jéssica Salvador Rodrigues da Rocha e Matheus Pereira
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "hash.h"
@@ -30,11 +32,11 @@ extern int getLineNumber();
 %token OPERATOR_AND
 %token OPERATOR_NOT
 
-%token<symbol> TK_IDENTIFIER
 %token<symbol> LIT_INTEGER
 %token<symbol> LIT_FLOAT
 %token<symbol> LIT_CHAR
 %token<symbol> LIT_STRING
+%token<symbol> TK_IDENTIFIER
 
 %token TOKEN_ERROR
 
@@ -58,7 +60,7 @@ def: func_def
 	| var_def
 	;
 
-func_def: header block
+func_def: header cmd_block
 	;
 
 header: type TK_IDENTIFIER 'd' param_list 'b'
@@ -72,7 +74,7 @@ param: ',' type TK_IDENTIFIER param
 	|
 	;
 
-block: '{' cmd_list '}'
+cmd_block: '{' cmd_list '}'
 	;
 
 cmd_list: cmd ';' cmd_list
@@ -87,11 +89,11 @@ cmd: TK_IDENTIFIER '=' expr
 	| KW_IF expr KW_THEN cmd
 	| KW_IF expr KW_THEN cmd KW_ELSE cmd
 	| KW_WHILE expr cmd
-	| block
+	| cmd_block
 	|
 	;
 
-expr:   LIT_INTEGER { fprintf(stderr,"achei int" ); } 
+expr:   LIT_INTEGER  
 	| LIT_FLOAT
         | LIT_CHAR
 
@@ -130,8 +132,8 @@ string_expr: LIT_STRING
 	| expr
 	;
 
-var_def: type TK_IDENTIFIER '=' literal ';'
-	| type TK_IDENTIFIER 'q' LIT_INTEGER 'p' ':' literal_list ';'
+var_def: type TK_IDENTIFIER '=' lit ';'
+	| type TK_IDENTIFIER 'q' LIT_INTEGER 'p' ':' lit_list ';'
 	| type TK_IDENTIFIER 'q' LIT_INTEGER 'p' ';'
 	;
 
@@ -140,11 +142,11 @@ type: KW_CHAR
 	| KW_FLOAT
 	;
 
-literal_list: literal literal_list
+lit_list: lit lit_list
 	|
 	;
 
-literal: LIT_INTEGER
+lit: LIT_INTEGER
 	| LIT_FLOAT
 	| LIT_CHAR
 	;

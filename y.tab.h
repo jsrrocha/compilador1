@@ -61,11 +61,11 @@ extern int yydebug;
     OPERATOR_OR = 271,
     OPERATOR_AND = 272,
     OPERATOR_NOT = 273,
-    TK_IDENTIFIER = 274,
-    LIT_INTEGER = 275,
-    LIT_FLOAT = 276,
-    LIT_CHAR = 277,
-    LIT_STRING = 278,
+    LIT_INTEGER = 274,
+    LIT_FLOAT = 275,
+    LIT_CHAR = 276,
+    LIT_STRING = 277,
+    TK_IDENTIFIER = 278,
     TOKEN_ERROR = 279
   };
 #endif
@@ -86,11 +86,11 @@ extern int yydebug;
 #define OPERATOR_OR 271
 #define OPERATOR_AND 272
 #define OPERATOR_NOT 273
-#define TK_IDENTIFIER 274
-#define LIT_INTEGER 275
-#define LIT_FLOAT 276
-#define LIT_CHAR 277
-#define LIT_STRING 278
+#define LIT_INTEGER 274
+#define LIT_FLOAT 275
+#define LIT_CHAR 276
+#define LIT_STRING 277
+#define TK_IDENTIFIER 278
 #define TOKEN_ERROR 279
 
 /* Value type.  */
@@ -98,7 +98,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 12 "parser.y" /* yacc.c:1909  */
+#line 16 "parser.y" /* yacc.c:1909  */
  HASH_NODE *symbol; 
 
 #line 105 "y.tab.h" /* yacc.c:1909  */
