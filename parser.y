@@ -7,6 +7,8 @@
 int yylex();
 int yyerror(char *text);
 
+extern int getLineNumber();
+
 %}
 
 %union { HASH_NODE *symbol; }

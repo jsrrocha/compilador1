@@ -3,15 +3,18 @@
 #include "hash.h"
 #include "y.tab.h"
 
+extern void initMe();
+extern int getLineNumber();
+extern int isRunning();
 
-//lex.yy.h
-int yylex();
+extern void hashPrint();
 extern char *yytext;
 extern FILE *yyin;
 
+extern int yylex();
+extern int yyparse();
 
-int isRunning(void);
-void initMe(void);
+
 
 int main(int argc, char** argv){
   FILE *gold = 0;

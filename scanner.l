@@ -9,6 +9,12 @@ int running = 1;
 
 extern int getLineNumber(void);
 
+
+int yywrap();
+int isRunning();
+int getLineNumber();
+void initMe();
+
 %}
 
 
@@ -114,7 +120,7 @@ extern int getLineNumber(void);
 
 [ \t]+ ;
 "/*"([^*]|\*+[^*/])*\*+"/" ;
-\/\/.* ;	
+
 
 . {
 	return TOKEN_ERROR;
@@ -129,7 +135,7 @@ extern int getLineNumber(void);
 
 //nao tenho certeza se a regra do yytext está correta  e ARRUMAR DO CHAR E STRING !
 
-#include "main.c"
+
 
 //código
 
