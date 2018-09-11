@@ -1,5 +1,9 @@
 
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "hash.h"
+
 
 //Jéssica Salvador Rodrigues da Rocha e Matheus Pereira
 

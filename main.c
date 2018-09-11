@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+#include "hash.h"
+
 //lex.yy.h
 int yylex();
 extern char *yytext;
